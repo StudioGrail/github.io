@@ -4,66 +4,67 @@
     --shadow:rgba(0,0,0,.5);
   }
   
+  /* Base */
   *{box-sizing:border-box}
   html,body{height:100%}
   body{margin:0; font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif; color:var(--text); background:var(--bg)}
   
-  /* HERO LAYERING */
+  /* HERO uses CSS background for precise framing */
   .seraph-hero{
     position:relative;
     min-height:90svh;
     overflow:hidden;
     isolation:isolate;
-    background:#0c0f12;
+    /* Control crop/anchor with background-position */
+    background-image: image-set(
+      url("Background1280.jpg") 1x,
+      url("Background1920.jpg") 2x
+    );
+    background-image: url("Background1920.jpg"); /* fallback */
+    background-size: cover;                      /* fill frame */
+    background-position: 50% 35%;               /* lift composition */
+    background-repeat: no-repeat;
   }
   
-  /* Background covers the frame */
-  .seraph-hero .bg{
-    position:absolute; inset:0;
-    width:100%; height:100%;
-    object-fit:cover;                /* fill without distortion */
-    transform:translateZ(0);
-    will-change:transform;
-  }
-  
-  /* Seraph body centered and scaled responsively */
+  /* Seraph centered reference */
   .seraph{
     position:absolute;
     left:50%; top:50%;
     width:min(1200px, 90vw);
     transform:translate(-50%, -50%);
-    filter:drop-shadow(0 10px 30px var(--shadow));
+    filter:drop-shadow(0 12px 36px var(--shadow));
     pointer-events:none;
   }
   
-  /* Clouds for parallax */
+  /* Eyes stacked exactly over the seraph; identical size and position */
+  .eyes{
+    position:absolute;
+    left:50%; top:50%;
+    width:min(1200px, 90vw);
+    transform:translate(-50%, -50%);
+    pointer-events:none;
+    will-change:transform;
+  }
+  .eyes img{
+    position:absolute; inset:0;                 /* full overlay */
+    width:100%; height:100%; object-fit:contain; /* match seraph box */
+  }
+  
+  /* Clouds adjusted so they’re visible on load */
   .cloud{
-    position:absolute; top:60%;
+    position:absolute; top:52%;
     width:min(50vw, 900px);
     opacity:.9;
     pointer-events:none;
     will-change:transform;
   }
-  .cloud--left{ left:-10vw }
-  .cloud--right{ right:-10vw }
+  .cloud--left{ left:-8vw }
+  .cloud--right{ right:-8vw }
   
-  /* Eye sprites positioned over sockets (tune these if needed) */
-  .pupil{
-    position:absolute;
-    width:22px; height:22px;                 /* adjust to your PNGs */
-    transform:translate(-50%, -50%);
-    pointer-events:none; will-change:transform;
-  }
-  .pupil--base{ left:48%; top:44%; opacity:.2 }   /* optional soft glow */
-  .pupil--bl  { left:47.7%; top:63.0% }
-  .pupil--br  { left:75.5%; top:59.8% }
-  .pupil--mid { left:55.4%; top:45.9% }
-  .pupil--tl  { left:63.8%; top:36.5% }
-  .pupil--tr  { left:83.6%; top:41.2% }
-  
+  /* Responsive tweak */
   @media (max-width: 900px){
-    .seraph{ width:min(1100px, 100vw) }
-    .pupil{ width:18px; height:18px }
-    .cloud{ top:62% }
+    .seraph, .eyes{ width:min(1100px, 100vw) }
+    .cloud{ top:58% }
+    .seraph-hero{ background-position: 50% 30% } /* keep subject centered */
   }
   

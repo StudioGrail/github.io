@@ -9,28 +9,22 @@
 </head>
 <body>
   <section class="seraph-hero" aria-label="Seraph hero with parallax clouds and eye tracking">
-    <!-- Responsive background: exact filenames/case from the repo -->
-    <picture>
-      <source media="(max-width: 799px)" srcset="Background1280.jpg" />
-      <source media="(max-width: 1599px)" srcset="Background1920.jpg" />
-      <source media="(max-width: 2559px)" srcset="Background2560.jpg" />
-      <img class="bg" src="Background3840.jpg" alt="Stormy sky over mountains" />
-    </picture>
-
-    <!-- Foreground clouds -->
-    <img class="cloud cloud--left" src="leftCloud.png" alt="" aria-hidden="true" />
+    <!-- Clouds (now start higher so they’re in view) -->
+    <img class="cloud cloud--left"  src="leftCloud.png"  alt="" aria-hidden="true" />
     <img class="cloud cloud--right" src="RightCloud.png" alt="" aria-hidden="true" />
 
-    <!-- Seraph body -->
+    <!-- Seraph body (reference layer) -->
     <img class="seraph" src="seraph3086.png" alt="Seraph with many wings and eyes" />
 
-    <!-- Eye sprites (exact filenames) -->
-    <img class="pupil pupil--base" src="eyeballbasecolor.png" alt="" aria-hidden="true" />
-    <img class="pupil pupil--bl"   src="eyeballbottomleft3086.png"  alt="" aria-hidden="true" />
-    <img class="pupil pupil--br"   src="eyeballbottomright3086.png" alt="" aria-hidden="true" />
-    <img class="pupil pupil--mid"  src="eyeballmiddle3086.png"      alt="" aria-hidden="true" />
-    <img class="pupil pupil--tl"   src="eyeballtopleft3086.png"     alt="" aria-hidden="true" />
-    <img class="pupil pupil--tr"   src="eyeballtopright3086.png"    alt="" aria-hidden="true" />
+    <!-- Eyes: one stacked layer perfectly aligned to the seraph export -->
+    <div class="eyes" aria-hidden="true">
+      <img src="eyeballbasecolor.png"        alt="" />
+      <img src="eyeballbottomleft3086.png"  alt="" />
+      <img src="eyeballbottomright3086.png" alt="" />
+      <img src="eyeballmiddle3086.png"      alt="" />
+      <img src="eyeballtopleft3086.png"     alt="" />
+      <img src="eyeballtopright3086.png"    alt="" />
+    </div>
   </section>
 
   <script src="main.js" defer></script>

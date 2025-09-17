@@ -1,15 +1,10 @@
 // Eye tracking and parallax using requestAnimationFrame
 (() => {
-    const root = document.querySelector('.seraph-hero');
-    const pupils = [...document.querySelectorAll('.pupil')].filter(p => !p.classList.contains('pupil--base'));
+    const root   = document.querySelector('.seraph-hero');
+    const eyes   = document.querySelector('.eyes');        // move entire eyes layer
     const cloudL = document.querySelector('.cloud--left');
     const cloudR = document.querySelector('.cloud--right');
-    const bg     = document.querySelector('.bg');
   
-    // Per-eye movement range (px)
-    const eyeConfig = new Map(pupils.map((el) => [el, { max: 8 }]));
-  
-    // Normalized target and current pointer (-1..1)
     let target = { x: 0, y: 0 };
     let curr   = { x: 0, y: 0 };
   
@@ -29,23 +24,17 @@
     const lerp = (a,b,t) => a + (b-a)*t;
   
     function frame(){
-      // Smooth follow
       curr.x = lerp(curr.x, target.x, 0.08);
       curr.y = lerp(curr.y, target.y, 0.08);
   
-      // Eyes: offset from anchors
-      for (const [el, cfg] of eyeConfig){
-        const dx = cfg.max * curr.x;
-        const dy = cfg.max * curr.y;
-        el.style.transform = `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px))`;
-      }
+      // Eyes: tiny offset so they appear to follow while staying aligned
+      const eyeAmp = 10; // px; increase for stronger effect
+      eyes.style.transform = `translate(calc(-50% + ${eyeAmp * curr.x}px), calc(-50% + ${eyeAmp * curr.y}px))`;
   
-      // Parallax
-      const cloudAmp = 18;  // px
-      const bgAmp    = 8;   // px
+      // Parallax clouds
+      const cloudAmp = 18; // px
       cloudL.style.transform = `translate(${cloudAmp * -curr.x}px, ${cloudAmp * curr.y}px)`;
       cloudR.style.transform = `translate(${cloudAmp *  curr.x}px, ${cloudAmp * -curr.y}px)`;
-      bg.style.transform     = `translate(${bgAmp    *  curr.x}px, ${bgAmp    *  curr.y}px)`;
   
       requestAnimationFrame(frame);
     }
