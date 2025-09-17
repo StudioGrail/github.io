@@ -1,0 +1,59 @@
+/* Layout */
+.seraph-hero{
+    position:relative;
+    min-height:70svh;
+    overflow:hidden;
+    isolation:isolate;
+    background:#0d0f10;
+  }
+  .seraph-hero .bg{
+    position:absolute; inset:0;
+    width:100%; height:100%; object-fit:cover;
+    transform:translateZ(0);
+    will-change:transform;
+  }
+  
+  /* Seraph */
+  .seraph{
+    position:absolute;
+    left:50%; top:50%;
+    width:min(1200px, 90vw);
+    transform:translate(-50%, -50%);
+    pointer-events:none;
+    filter:drop-shadow(0 10px 30px rgba(0,0,0,.4));
+  }
+  
+  /* Clouds (parallax layers) */
+  .cloud{
+    position:absolute; top:55%;
+    width:min(50vw, 900px);
+    opacity:.9;
+    pointer-events:none;
+    will-change:transform;
+  }
+  .cloud--left{ left:-10vw; transform:translateZ(0); }
+  .cloud--right{ right:-10vw; transform:translateZ(0); }
+  
+  /* Eye sprites */
+  .pupil{
+    position:absolute;
+    width:22px; height:22px; /* adjust if your PNGs differ */
+    transform:translate(-50%, -50%);
+    will-change:transform;
+    pointer-events:none;
+  }
+  
+  /* Eye anchor positions relative to the seraph image frame */
+  .pupil--base{ left:48%; top:44%; opacity:.25 }         /* optional subtle base glow */
+  .pupil--bl { left:47.7%; top:63.0% }
+  .pupil--br { left:75.5%; top:59.8% }
+  .pupil--mid{ left:55.4%; top:45.9% }
+  .pupil--tl { left:63.8%; top:36.5% }
+  .pupil--tr { left:83.6%; top:41.2% }
+  
+  /* Responsive tweak for smaller screens */
+  @media (max-width: 900px){
+    .seraph{ width:min(1100px, 100vw) }
+    .pupil{ width:18px; height:18px }
+    .cloud{ top:60% }
+  }
